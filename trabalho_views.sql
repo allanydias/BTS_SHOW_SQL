@@ -63,7 +63,7 @@ FROM generate_series(1, 10000) AS numero_cliente;
 INSERT INTO ingressos (id_cliente, id_setor, data_compra, status_ingresso)
 SELECT
     (random() * 9999 + 1)::INT,
-    (random() * 3   + 1)::INT,
+    (floor(random() * 4) + 1)::INT,
     NOW() - (random() * 30)::INT * INTERVAL '1 day',
     CASE WHEN random() > 0.05 THEN 'ativo' ELSE 'cancelado' END
 FROM generate_series(1, 5000000);
