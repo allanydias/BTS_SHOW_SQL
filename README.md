@@ -19,6 +19,11 @@ A estratégia de otimização focou na redução de I/O e processamento de agreg
 - **Window Functions:** Para cálculos complexos de receita acumulada.
 - **Apoio Técnico:** Engenharia de prompts com Gemini 3 Flash e Claude 3.5 Sonnet para validação de sintaxe e geração de massa de dados.
 
+## ⚡ Se você encontre isso, significa:
+- **I/O (Input/Output):** O custo de tempo para ler/gravar dados no disco (SSD/HD). Otimizar I/O significa fazer o banco "trabalhar menos" fisicamente.
+- **Materialized Views:** Diferente da View comum, ela salva o resultado fisicamente (WITH DATA). O cálculo pesado (soma de 5M de linhas) é feito uma vez, tornando o acesso posterior instantâneo.
+- **B-Tree (Índice):** Estrutura de árvore que organiza os dados de forma hierárquica. É o padrão do PostgreSQL para encontrar informações em milissegundos sem ler a tabela inteira.
+
 ## 📂 Status do Repositório
 - [x] Script SQL de Infraestrutura e Views.
 - [ ] Documentação Técnica (.docx) e Prints de EXPLAIN ANALYZE (Em breve).
