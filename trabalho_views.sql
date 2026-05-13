@@ -25,7 +25,7 @@ CREATE TABLE clientes (
     cpf_cliente         CHAR(11)        UNIQUE NOT NULL,
     data_cadastro       TIMESTAMP       DEFAULT NOW()
 );
- 
+
 CREATE TABLE ingressos (
     id_ingresso         SERIAL          PRIMARY KEY,
     id_cliente          INT             NOT NULL,
@@ -56,6 +56,9 @@ SELECT
     'cliente' || numero_cliente || '@email.com',
     LPAD(numero_cliente::TEXT, 11, '0')
 FROM generate_series(1, 10000) AS numero_cliente;
+
+-- Geração de 5 milhões de registros para simular um ambiente de alta concorrência
+-- Essa parte é essencial para validar o ganho de performance das Materialized Views.
 
 INSERT INTO ingressos (id_cliente, id_setor, data_compra, status_ingresso)
 SELECT
@@ -167,7 +170,11 @@ SELECT * FROM views_simples_lento.view_disponibilidade_por_setor;
 
 -- INÍCIO DA OTIMIZAÇÃO (MATERIALIZED VIEWS)
 
-SET search_path TO views_otimizado_materializadas, public;
+SET search_path TO views_otimizado_materializadas, public; --Se você rodou o primeiro SET para os arquivos ficarem organizados, é importante que quando roda esse SET, colocar o public, se não, vai ter erro
+
+
+-- Uso de Materialized View para evitar o reprocessamento de 5M de linhas a cada consulta.
+-- Os dados são persistidos em disco, reduzindo o custo de CPU e I/O.
 
 CREATE MATERIALIZED VIEW view_materializada_disponibilidade_por_setor AS
 SELECT
@@ -227,6 +234,9 @@ GROUP BY
     shows.nome_show
 ORDER BY data_da_venda DESC
 WITH DATA;
+
+-- Índice B-Tree para otimizar filtros de data. 
+-- Transforma uma busca sequencial em busca logarítmica.
  
 CREATE INDEX idx_faturamento_data_da_venda
     ON view_materializada_faturamento_por_dia (data_da_venda DESC);
