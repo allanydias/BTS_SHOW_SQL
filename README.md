@@ -23,6 +23,8 @@ A estratégia de otimização focou na redução de I/O e processamento de agreg
 - **I/O (Input/Output):** O custo de tempo para ler/gravar dados no disco (SSD/HD). Otimizar I/O significa fazer o banco "trabalhar menos" fisicamente.
 - **Materialized Views:** Diferente da View comum, ela salva o resultado fisicamente (WITH DATA). O cálculo pesado (soma de 5M de linhas) é feito uma vez, tornando o acesso posterior instantâneo.
 - **B-Tree (Índice):** Estrutura de árvore que organiza os dados de forma hierárquica. É o padrão do PostgreSQL para encontrar informações em milissegundos sem ler a tabela inteira.
+- **Seq Scan:** é como se você precurasse os dados em um caderno sem ordem, lendo página por página até encontrar, mesmo que no computador seja segundos.
+- **Index Scan:** Pode levar milissegundos, o que ajuda um sistema real de vendas representa a diferença entre um site que suporta ou cai no dia do show, ele vai na página certa e procura os dados. É só se lembrar das leis booleana
 
 ## 📂 Status do Repositório
 - [x] Script SQL de Infraestrutura e Views.
